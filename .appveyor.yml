@@ -1,0 +1,20 @@
+# Название конфига
+image: Ubuntu  # Или Windows, если нужно
+version: 1.0
+
+environment:
+  nodejs_version: "18"  # Версия Node.js
+
+install:
+  - npm install
+
+build: off  # Не собираем, так как это JS-проект
+
+test_script:
+  - npm test  # Запуск тестов (Jest)
+
+# Ветки, для которых запускается сборка
+branches:
+  only:
+    - main
+    - master
