@@ -1,20 +1,19 @@
-# Название конфига
-image: Ubuntu  # Или Windows, если нужно
-version: 1.0
+image: Ubuntu  # Используем Ubuntu для совместимости
 
 environment:
-  nodejs_version: "22"  # Версия Node.js
+  nodejs_version: "22.15.0"  # Точно соответствует твоей версии
+  NODE_OPTIONS: "--experimental-vm-modules"  # Для поддержки ES-модулей в Jest
 
 install:
+  - npm install -g npm@latest  # Обновляем npm до актуальной версии
   - npm install
 
-build: off  # Не собираем, так как это JS-проект
+build: off  # Для JS-проектов сборка не требуется
 
 test_script:
-  - npm test  # Запуск тестов (Jest)
+  - node --version
+  - npm --version
+  - npm test -- --maxWorkers=2 --no-cache  # Отключаем кэш Jest для чистоты тестов
 
-# Ветки, для которых запускается сборка
-branches:
-  only:
-    - main
-    - master
+cache:
+  - node_modules  # Кэшируем зависимости
