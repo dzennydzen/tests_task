@@ -1,1 +1,1 @@
-# tests_task
+[![Build status](https://ci.appveyor.com/api/projects/status/github/dzennydzen/tests-task?svg=true)](https://ci.appveyor.com/project/dzennydzen/tests-task)
