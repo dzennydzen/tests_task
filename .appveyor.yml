@@ -1,19 +1,20 @@
-image: Ubuntu  # Используем Ubuntu для совместимости
+image: Ubuntu 22.04  # Используем свежий образ
 
 environment:
   nodejs_version: "22.15.0"  # Точно соответствует твоей версии
-  NODE_OPTIONS: "--experimental-vm-modules"  # Для поддержки ES-модулей в Jest
+  NODE_OPTIONS: "--experimental-vm-modules"
 
 install:
-  - npm install -g npm@latest  # Обновляем npm до актуальной версии
-  - npm install
+  - corepack enable  # Для корректного управления npm/yarn
+  - corepack prepare npm@latest --activate
+  - npm install --no-audit
 
-build: off  # Для JS-проектов сборка не требуется
+build: off
 
 test_script:
   - node --version
   - npm --version
-  - npm test -- --maxWorkers=2 --no-cache  # Отключаем кэш Jest для чистоты тестов
+  - npm test -- --maxWorkers=2
 
 cache:
-  - node_modules  # Кэшируем зависимости
+  - node_modules
