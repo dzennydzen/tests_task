@@ -3,7 +3,7 @@ image: Ubuntu  # Или Windows, если нужно
 version: 1.0
 
 environment:
-  nodejs_version: "18"  # Версия Node.js
+  nodejs_version: "22"  # Версия Node.js
 
 install:
   - npm install
