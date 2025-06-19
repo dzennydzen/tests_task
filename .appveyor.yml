@@ -1,20 +1,20 @@
-image: Ubuntu2204  # Точное имя образа для Ubuntu 22.04
+image: Ubuntu2204
 
 environment:
-  nodejs_version: "22.15.0"  # Жёстко фиксируем твою версию
+  nodejs_version: "22.15.0"
 
 install:
-  - curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -  # Принудительная установка Node 22
+  - curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
   - sudo apt-get install -y nodejs
-  - corepack enable
-  - npm install -g npm@11.4.1  # Точная версия npm как у тебя
+  - npm install -g npm@11.4.1
+  - npm install --include=dev  # Ключевое изменение: ставим и dev-зависимости!
 
 build: off
 
 test_script:
   - node --version
   - npm --version
-  - npm test -- --maxWorkers=2
+  - npx jest --coverage --maxWorkers=2  # Используем npx для гарантии
 
 cache:
   - node_modules
