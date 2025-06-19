@@ -1,13 +1,13 @@
-image: Ubuntu 22.04  # Используем свежий образ
+image: Ubuntu2204  # Точное имя образа для Ubuntu 22.04
 
 environment:
-  nodejs_version: "22.15.0"  # Точно соответствует твоей версии
-  NODE_OPTIONS: "--experimental-vm-modules"
+  nodejs_version: "22.15.0"  # Жёстко фиксируем твою версию
 
 install:
-  - corepack enable  # Для корректного управления npm/yarn
-  - corepack prepare npm@latest --activate
-  - npm install --no-audit
+  - curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -  # Принудительная установка Node 22
+  - sudo apt-get install -y nodejs
+  - corepack enable
+  - npm install -g npm@11.4.1  # Точная версия npm как у тебя
 
 build: off
 
