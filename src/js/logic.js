@@ -1,3 +1,5 @@
+import fetchData from './http.js';
+
 export default function checkHealth(character) {
 	const h = character.health;
 	if (h > 50) {
@@ -19,4 +21,11 @@ export function sortHeroesByHealth(chrts) {
 	return chrts.sort((a,b) => b.health - a.health);
 };
 
-
+export function getLevel(userId) {
+  const response = fetchData(`https://server/user/${userId}`);
+  // TODO: логика обработки
+  if (response.status === 'ok') {
+     return `Ваш текущий уровень: ${response.level}`;
+  }
+  return 'Информация об уровне временно недоступна';
+}

@@ -1,5 +1,22 @@
 import checkHealth from '../logic.js';
 import { sortHeroesByHealth } from '../logic.js';
+import fetchData from '../http.js';
+import { getLevel } from '../logic.js';
+
+
+jest.mock('../http.js');
+
+test('getLevel returns level when status is ok', () => {
+    fetchData.mockReturnValue({ status: 'ok', level: 42 });
+
+    expect(getLevel(1)).toBe('Ваш текущий уровень: 42');
+});
+
+test('getLevel returns error message when status is not ok', () => {
+    fetchData.mockReturnValue({ status: 'error', cause: 'Something wrong' });
+
+    expect(getLevel(1)).toBe('Информация об уровне временно недоступна');
+});
 
 
 describe('checkHealth', () => {
@@ -43,14 +60,3 @@ describe('sortHeroesByHealth', () => {
         expect(sortHeroesByHealth(data)).toBe(expected);
     });
 });
-
-
- // test('Не должно работать с пустым массивом или отсутствием входных данных', () => {
-    //     expect(sortHeroesByHealth([])).toBe('Не переданы объекты для сортировки');
-    //     expect(sortHeroesByHealth()).toBe('Не переданы объекты для сортировки');
-    // });
-
-    // test('Не должно работать с не-массивом', () => {
-    //     expect(sortHeroesByHealth({name: 'лучник', health: 40})).toBe('Некорректный формат данных');
-    //     expect(sortHeroesByHealth({name: 'лучник', health: 40}, {name: 'маг', health: 80})).toBe('Некорректный формат данных');
-    // });
